@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvCloth"
+    android:layout_width="match_parent"
+    android:layout_height="370dp"
+    app:cardCornerRadius="40dp"
+    android:layout_margin="15dp"
+    android:longClickable="true"
+    android:clickable="true"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="30dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="35dp"
+            android:layout_marginStart="5dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/user_image"
+                android:layout_width="365dp"
+                android:layout_height="340dp"
+                android:layout_gravity="center_vertical"
+
+
+                android:src="@drawable/watermedium" />
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="690dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Установка ванной техники"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/black"
+            android:textSize="52sp"
+
+            app:layout_constraintStart_toEndOf="@+id/materialCardView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="info"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="50sp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView" />
+
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+
+            android:text="price"
+            android:textColor="@color/appColor"
+            android:textSize="55sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView"
+            app:layout_constraintTop_toBottomOf="@+id/info" />
+
+        <TextView
+            android:id="@+id/priceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" ₽"
+            android:textColor="@color/appColor"
+            android:textSize="55sp"
+            android:textStyle="bold"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/price"
+            app:layout_constraintTop_toBottomOf="@+id/info" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

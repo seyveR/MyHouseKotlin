@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvCloth"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="5dp"
+    android:longClickable="true"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/prodImgCv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+
+            <ImageView
+                android:id="@+id/prodImg"
+                android:layout_width="395dp"
+                android:layout_height="320dp"
+                android:layout_gravity="top"
+                android:src="@drawable/watermedium"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="655dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="name"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="40dp"
+            android:textColor="@color/black"
+            android:textSize="58sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/prodImgCv"
+            />
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="info"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            android:textSize="56sp"
+            android:layout_marginStart="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+
+            app:layout_constraintStart_toEndOf="@+id/prodImgCv"
+            />
+
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="price"
+            android:textColor="@color/appColor"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:layout_marginTop="60dp"
+            app:layout_constraintStart_toEndOf="@+id/prodImgCv"
+            app:layout_constraintTop_toBottomOf="@+id/info"
+            />
+
+        <TextView
+            android:id="@+id/priceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" ₽"
+            android:textColor="@color/appColor"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:layout_marginTop="60dp"
+            app:layout_constraintTop_toBottomOf="@+id/info"
+            app:layout_constraintStart_toEndOf="@+id/price"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/status"
+            android:layout_width="240dp"
+            app:cardCornerRadius="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="30dp"
+
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Выполнено"
+                android:textColor="@color/appSecondColor"
+                android:textSize="34sp">
+
+            </TextView>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.myhousev3.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_prodCartFragment"
+            app:destination="@id/prodCartFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.myhousev3.fragments.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_paymentFragment2"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.example.myhousev3.fragments.HelpFragment"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.myhousev3.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.myhousev3.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
+
+    <fragment
+        android:id="@+id/prodCartFragment"
+        android:name="com.example.myhousev3.fragments.ProdCartFragment"
+        android:label="fragment_prod_cart"
+        tools:layout="@layout/fragment_prod_cart" >
+        <action
+            android:id="@+id/action_prodCartFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.myhousev3.fragments.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/action_paymentFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_paymentFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_paymentFragment_to_cartFragment2"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_paymentFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_paymentFragment_to_successFragment"
+            app:destination="@id/successFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="com.example.myhousev3.fragments.SuccessFragment"
+        android:label="fragment_success"
+        tools:layout="@layout/fragment_success" >
+        <action
+            android:id="@+id/action_successFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.example.myhousev3.fragments.OrdersFragment"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_ordersFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_ordersFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/serviceFragment"
+        android:name="com.example.myhousev3.fragments.ServiceFragment"
+        android:label="fragment_service"
+        tools:layout="@layout/fragment_service" />
+    <fragment
+        android:id="@+id/prodCartOthersFragment"
+        android:name="com.example.myhousev3.fragments.ProdCartOthersFragment"
+        android:label="fragment_prod_cart_others"
+        tools:layout="@layout/fragment_prod_cart_others" />
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.example.myhousev3.fragments.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" />
+    <fragment
+        android:id="@+id/loadFragment"
+        android:name="com.example.myhousev3.fragments.LoadFragment"
+        android:label="fragment_load"
+        tools:layout="@layout/fragment_load" >
+        <action
+            android:id="@+id/action_loadFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
+</navigation>

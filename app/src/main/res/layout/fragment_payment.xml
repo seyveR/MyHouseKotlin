@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.PaymentFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/backBtn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/appColor"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvBtnPay">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/arrow_back"
+                app:tint="@color/appSecondColor">
+
+            </ImageView>
+
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/textSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="Введите данные карты"
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/cardNumberTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:text="Номер карты"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSelect">
+
+    </TextView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="40dp"
+        app:cardCornerRadius="8dp"
+        android:backgroundTint="#D9D9D9"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardNumberTv">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cardNumberEdit"
+            android:backgroundTint="#D9D9D9"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:hint="Card number"
+            android:textColorHint="#D9D9D9"
+            android:inputType="text"
+            android:paddingTop="12dp"
+            android:paddingLeft="16dp" />
+
+
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+    <TextView
+        android:id="@+id/cvvTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CVV"
+        android:textSize="14sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvCard">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/dateTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="85dp"
+        android:text="мес/год"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cvCVV"
+        app:layout_constraintTop_toBottomOf="@+id/cvCard">
+
+    </TextView>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvCVV"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="40dp"
+        app:cardCornerRadius="8dp"
+        android:backgroundTint="#D9D9D9"
+        android:inputType="textPassword"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvvTv">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/EditCVV"
+            android:backgroundTint="#D9D9D9"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:hint="CVV"
+            android:textColorHint="#D9D9D9"
+            android:inputType="text"
+            android:paddingTop="12dp"
+            android:paddingLeft="16dp" />
+
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvDate"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="70dp"
+        app:cardCornerRadius="8dp"
+        android:backgroundTint="#D9D9D9"
+        android:inputType="textPassword"
+
+        app:layout_constraintStart_toEndOf="@+id/cvCVV"
+        app:layout_constraintTop_toBottomOf="@+id/cvvTv">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/EditDate"
+            android:backgroundTint="#D9D9D9"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:hint="CVV"
+            android:textColorHint="#D9D9D9"
+            android:inputType="text"
+            android:paddingTop="12dp"
+            android:paddingLeft="16dp" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/sbpCv"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="15dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sberCv"
+        app:layout_constraintTop_toBottomOf="@+id/cvCVV">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:src="@drawable/sbp">
+
+        </ImageView>
+
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/sberCv"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/sbpCv"
+        app:layout_constraintTop_toBottomOf="@+id/cvCVV"
+        app:layout_constraintStart_toEndOf="@+id/tinkoffCv">
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/sber"
+            android:layout_width="60dp"
+            android:padding="10dp"
+            android:layout_height="60dp">
+
+        </ImageView>
+
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tinkoffCv"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/sberCv"
+        app:layout_constraintTop_toBottomOf="@+id/cvCVV"
+        app:layout_constraintStart_toStartOf="parent">
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/tinkoff"
+            android:layout_width="60dp"
+            android:layout_height="60dp">
+
+        </ImageView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvBtnPay"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/appColor"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tinkoffCv">
+
+        <TextView
+            android:id="@+id/btnPay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Оплатить"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textColor="@color/appSecondColor"
+            android:textSize="28sp">
+
+        </TextView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

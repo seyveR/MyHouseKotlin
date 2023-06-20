@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvCloth"
+    android:layout_width="540dp"
+    android:layout_height="500dp"
+    app:cardCornerRadius="30dp"
+    android:layout_margin="15dp"
+    android:longClickable="true"
+    android:clickable="true"
+    >
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Уборка"
+        android:textSize="54sp"
+        android:lines="2"
+        android:gravity="center"
+
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black"
+
+        android:textStyle="bold">
+
+    </TextView>
+    <ImageView
+        android:id="@+id/imgRes"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/water"
+        android:layout_width="340dp"
+        android:layout_gravity="center"
+
+        android:layout_height="310dp">
+
+    </ImageView>
+
+
+</androidx.cardview.widget.CardView>

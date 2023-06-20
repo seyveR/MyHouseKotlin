@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.SettingsFragment">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Помощь"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+    </Toolbar>
+
+    <ScrollView
+        android:id="@+id/scrollViewProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:ignore="SpeakableTextPresentCheck">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvChats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Чаты"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black">
+
+            </TextView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/helpCv"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvChats"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_marginStart="10dp"
+                    android:layout_width="65dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="65dp"
+                    app:cardCornerRadius="35dp">
+                    <ImageView
+                        android:src="@drawable/avatar"
+                        android:scaleType="fitXY"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </ImageView>
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Поддержка Мой Дом"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="16sp">
+
+                </TextView>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

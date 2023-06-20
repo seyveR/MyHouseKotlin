@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.HelpFragment">
+
+    <Button
+        android:id="@+id/addService"
+        android:layout_width="0dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Добавить"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toStartOf="@id/viewService"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageRes" />
+    <Button
+        android:id="@+id/viewService"
+        android:layout_width="0dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Посмотреть"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addService"
+        app:layout_constraintTop_toBottomOf="@+id/imageRes" />
+
+    <EditText
+        android:id="@+id/price"
+        android:layout_width="0dp"
+        android:layout_height="125dp"
+        android:layout_marginEnd="200dp"
+        android:textSize="34sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="price"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/viewService"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/addService"
+        app:layout_constraintTop_toBottomOf="@+id/type" />
+
+    <EditText
+        android:id="@+id/type"
+        android:layout_width="0dp"
+        android:layout_height="125dp"
+        android:layout_marginEnd="200dp"
+        android:textSize="34sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="weight"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/viewService"
+        app:layout_constraintStart_toStartOf="@+id/addService"
+        app:layout_constraintTop_toBottomOf="@+id/category" />
+
+    <EditText
+        android:id="@+id/category"
+        android:layout_width="0dp"
+        android:layout_height="125dp"
+        android:layout_marginEnd="200dp"
+        android:textSize="34sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="category"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/viewService"
+        app:layout_constraintStart_toStartOf="@+id/addService"
+        app:layout_constraintTop_toBottomOf="@+id/itemText" />
+
+    <EditText
+        android:id="@+id/itemText"
+        android:layout_width="0dp"
+        android:layout_height="125dp"
+        android:layout_marginEnd="200dp"
+        android:textSize="34sp"
+        android:layout_marginStart="20dp"
+
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="itemText"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/viewService"
+        app:layout_constraintStart_toStartOf="@+id/addService"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/imageRes"
+        android:layout_width="0dp"
+        android:layout_height="125dp"
+        android:layout_marginEnd="200dp"
+        android:textSize="34sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="image name"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/viewService"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/addService"
+        app:layout_constraintTop_toBottomOf="@+id/price" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btnChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/appColor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Чаты"
+            android:textColor="@color/appSecondColor"
+            android:textSize="44sp">
+
+        </TextView>
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btnInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/appColor"
+        app:layout_constraintTop_toBottomOf="@+id/btnChat"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text="О нас"
+            android:textSize="44sp"
+            android:textColor="@color/appSecondColor">
+
+        </TextView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="409dp"
+        android:layout_height="436dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addService" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

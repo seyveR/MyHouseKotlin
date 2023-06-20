@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "574375598859",
+    "firebase_url": "https://myhouse-f7f22-default-rtdb.firebaseio.com",
+    "project_id": "myhouse-f7f22",
+    "storage_bucket": "myhouse-f7f22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574375598859:android:6df01b96787680747a600e",
+        "android_client_info": {
+          "package_name": "com.example.myhousev3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574375598859-5uat5cbm5frbti40talmvrp6q45ahcng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV_l5n7GWyZT210HwfqKTQwRb2Ncbujr8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574375598859-5uat5cbm5frbti40talmvrp6q45ahcng.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
