@@ -47,9 +47,6 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.serviceFragment, bundle)
         }
 
-
-
-
         recyclerView.adapter = catAdapter
         val layoutManager = GridLayoutManager(requireContext(), 2)
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

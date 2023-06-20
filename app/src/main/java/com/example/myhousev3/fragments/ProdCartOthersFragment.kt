@@ -95,18 +95,28 @@ class ProdCartOthersFragment : Fragment() {
         val imgCat = arguments?.getString("imgCat")
 
         val controller = findNavController()
-        val backBtn = binding.backBtn
-        backBtn.setOnClickListener{ controller.navigate(R.id.homeFragment) }
-
-        Log.d("ProdCartFragment", "Arguments: id=$id, name=$name, price=$price, size=$info")
-        val nameTextView = binding.name // Замените на ваш идентификатор
-        val priceTextView = binding.price // Замените на ваш идентификатор
-        val infoTextView = binding.info // Замените на ваш идентификатор
+        val nameTextView = binding.name
+        val priceTextView = binding.price
+        val infoTextView = binding.info
         val imageView = binding.prodImg
 
         nameTextView.text = name
         priceTextView.text = price
         infoTextView.text = info
+
+        val backBtn = binding.backBtn
+        backBtn.setOnClickListener {
+            lifecycleScope.launch {
+                val currentProduct = prodDao.getProductByName(nameTextView.text.toString())
+                val bundle = Bundle().apply {
+                    putString("cat_name", currentProduct?.type)
+                }
+                controller.navigate(R.id.serviceFragment, bundle)
+            }
+        }
+
+        Log.d("ProdCartFragment", "Arguments: id=$id, name=$name, price=$price, size=$info")
+
 
         // Получите ссылку на ImageView
         if (imgCat != null) {

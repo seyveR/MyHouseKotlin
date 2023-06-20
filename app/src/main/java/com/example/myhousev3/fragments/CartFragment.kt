@@ -83,6 +83,8 @@ class CartFragment : Fragment() {
                 cartAdapter.setCart(carts)
                 binding.toPay.visibility = if (cartAdapter.isCartEmpty()) View.GONE else View.VISIBLE
                 binding.totalPrice.visibility = if (cartAdapter.isCartEmpty()) View.GONE else View.VISIBLE
+                binding.priceTv.visibility = if (cartAdapter.isCartEmpty()) View.GONE else View.VISIBLE
+                binding.rublesTv.visibility = if (cartAdapter.isCartEmpty()) View.GONE else View.VISIBLE
             }.launchIn(lifecycleScope)
         }
     }

@@ -54,11 +54,7 @@ class ServiceFragment : Fragment() {
         // Get the cat name from the arguments
         val catName = arguments?.getString("cat_name")
         if (catName != null) {
-            lifecycleScope.launch {
-                prodDao.getProductsByType(catName).collect { products ->
-                    prodAdapter.setProd(products)
-                }
-            }
+            viewProdByCat(catName)
         } else {
             viewProd()
         }
@@ -68,6 +64,11 @@ class ServiceFragment : Fragment() {
 
     private fun viewProd() {
         prodDao.getUniqueNameLowestWeight().onEach { products ->
+            prodAdapter.setProd(products)
+        }.launchIn(lifecycleScope)
+    }
+    private fun viewProdByCat(catName: String) {
+        prodDao.getProductsByType(catName).onEach { products ->
             prodAdapter.setProd(products)
         }.launchIn(lifecycleScope)
     }

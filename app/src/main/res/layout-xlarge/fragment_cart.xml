@@ -41,29 +41,65 @@
         android:id="@+id/toPay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="300dp"
-        android:layout_marginEnd="300dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="50dp"
         android:text="Заказать"
         android:textAllCaps="false"
         android:textColor="@color/appSecondColor"
         android:textSize="54sp"
-        app:layout_constraintTop_toBottomOf="@+id/totalPrice"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalPrice">
 
 
     </Button>
+
+    <TextView
+        android:id="@+id/priceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Сумма: "
+        android:textColor="@color/black"
+        android:textSize="50sp"
+        android:layout_marginBottom="250dp"
+        android:textStyle="bold"
+        android:layout_marginStart="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView">
+
+
+    </TextView>
+
     <TextView
         android:id="@+id/totalPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Цена"
-        android:textSize="40sp"
+        android:textColor="@color/black"
+        android:textSize="50sp"
+        android:layout_marginBottom="250dp"
         android:textStyle="bold"
-        android:layout_marginStart="50dp"
-        android:layout_marginBottom="160dp"
-        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintStart_toEndOf="@+id/priceTv"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView">
+
+
+    </TextView>
+    <TextView
+        android:id="@+id/rublesTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" ₽"
+        android:textColor="@color/black"
+        android:textSize="50sp"
+        android:layout_marginBottom="250dp"
+        android:textStyle="bold"
+
+        app:layout_constraintStart_toEndOf="@+id/totalPrice"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView">
 

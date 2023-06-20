@@ -20,6 +20,9 @@ interface ProdDao {
     @Query("SELECT * FROM products WHERE name = :prodName")
     suspend fun getProductsByName(prodName: String): List<ProdItem>
 
+    @Query("SELECT * FROM products WHERE name = :productName LIMIT 1")
+    suspend fun getProductByName(productName: String): ProdItem?
+
     @Query("""
     SELECT p.*
     FROM products p
