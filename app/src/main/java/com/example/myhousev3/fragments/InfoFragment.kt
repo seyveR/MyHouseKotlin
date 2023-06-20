@@ -10,13 +10,14 @@ import androidx.navigation.fragment.findNavController
 
 import com.bumptech.glide.Glide
 import com.example.myhousev3.R
+import com.example.myhousev3.databinding.FragmentInfoBinding
 
 import com.example.myhousev3.databinding.FragmentLoadBinding
 
 
 class InfoFragment : Fragment() {
 
-    private lateinit var binding: FragmentLoadBinding
+    private lateinit var binding: FragmentInfoBinding
     private lateinit var navController: NavController
 
 
@@ -24,13 +25,10 @@ class InfoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLoadBinding.inflate(inflater, container, false)
+        binding = FragmentInfoBinding.inflate(inflater, container, false)
         navController = findNavController()
 
-        Glide.with(this)
-            .asGif()
-            .load(R.drawable.load)
-            .into(binding.gif)
+        binding.btnBack.setOnClickListener { navController.navigate(R.id.helpFragment) }
 
         return binding.root
     }
