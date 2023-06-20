@@ -53,10 +53,8 @@ class HelpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHelpBinding.inflate(inflater, container, false)
-        recyclerView = binding.recyclerView // Предполагается, что вы добавили RecyclerView в макет фрагмента
 
         initView()
-        initRecyclerView()
 
         prodDao = ProdDb.getDb(requireContext()).getDao()
 
@@ -65,11 +63,7 @@ class HelpFragment : Fragment() {
             navController.navigate(R.id.prodCartFragment, bundle)
         })
 
-        recyclerView.adapter = prodAdapter
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-
         btnAdd.setOnClickListener{ addService() }
-        btnView.setOnClickListener{ viewProd() }
         binding.btnChat.setOnClickListener { navController.navigate(R.id.settingsFragment) }
         binding.btnInfo.setOnClickListener { navController.navigate(R.id.infoFragment) }
 
@@ -78,13 +72,6 @@ class HelpFragment : Fragment() {
         return binding.root
     }
 
-    private fun viewProd() {
-        prodDao.getAllProd().onEach { products ->
-            prodAdapter.setProd(products)
-        }.launchIn(lifecycleScope)
-    }
-
-
     private fun addService(){
         val name = edItemText.text.toString()
         val type = edCategory.text.toString()
@@ -92,8 +79,8 @@ class HelpFragment : Fragment() {
         val price = edPrice.text.toString()
         val image = imageName.text.toString()
 
-        val text = null // Здесь вы можете добавить логику для установки значения text
-        val imageRes = null // Здесь вы можете добавить логику для установки значения imageRes
+        val text = null
+        val imageRes = null
 
         if (name.isEmpty() || type.isEmpty() || price.isEmpty() || info.isEmpty()){
             Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show()
@@ -124,12 +111,6 @@ class HelpFragment : Fragment() {
         edType = binding.type
         edPrice = binding.price
         btnAdd = binding.addService
-        btnView = binding.viewService
         imageName = binding.imageRes
-    }
-
-    private fun initRecyclerView() {
-        this.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
     }
 }
