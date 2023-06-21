@@ -14,6 +14,12 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.myhousev3.databases.CartDao
 import com.example.myhousev3.databases.CartDb
+import com.example.myhousev3.databases.CatDao
+import com.example.myhousev3.databases.CatDb
+import com.example.myhousev3.databases.CatItem
+import com.example.myhousev3.databases.ProdDao
+import com.example.myhousev3.databases.ProdDb
+import com.example.myhousev3.databases.ProdItem
 import com.example.myhousev3.databases.SharedViewModel
 import com.example.myhousev3.databases.UserDao
 import com.example.myhousev3.databases.UserDb
@@ -34,6 +40,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userDao: UserDao
     private lateinit var cartDao: CartDao
     private var cartBadge: BadgeDrawable? = null
+    private lateinit var catDao: CatDao
+    private lateinit var prodDao: ProdDao
     private val sharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +55,8 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.fragmentContainerView)
         cartDao = CartDb.getDb(this).getDao()
         userDao = UserDb.getDb(this).getDao()
+        catDao = CatDb.getDb(this).getDao()
+        prodDao = ProdDb.getDb(this).getDao()
 
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -58,14 +68,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        lifecycleScope.launch {
-            val currentUser = userDao.getUserByAuthStatus(1)
-            currentUser?.let { user ->
-                val cartItemCount = cartDao.getCartItemCount(user.email).first()
-                sharedViewModel.setCartItemCount(cartItemCount)
-                cartBadge = botNavView.getOrCreateBadge(R.id.cartFragment)
-                cartBadge?.isVisible = cartItemCount > 0
-                cartBadge?.number = cartItemCount
+        lifecycleScope.launch(Dispatchers.IO) {
+
+            withContext(Dispatchers.Main) {
+                val currentUser = userDao.getUserByAuthStatus(1)
+                currentUser?.let { user ->
+                    val cartItemCount = cartDao.getCartItemCount(user.email).first()
+                    sharedViewModel.setCartItemCount(cartItemCount)
+                    cartBadge = botNavView.getOrCreateBadge(R.id.cartFragment)
+                    cartBadge?.isVisible = cartItemCount > 0
+                    cartBadge?.number = cartItemCount
+                }
             }
         }
 
@@ -135,4 +148,5 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
 }

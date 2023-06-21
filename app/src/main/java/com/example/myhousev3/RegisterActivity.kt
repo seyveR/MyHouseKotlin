@@ -56,7 +56,11 @@ class RegisterActivity : AppCompatActivity() {
                         binding.firstName.setText("")
                         binding.mail.setText("")
                         binding.pass.setText("")
+
                         Toast.makeText(this@RegisterActivity, "Регистрация успешна", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
                     }
                 } else {
                     withContext(Dispatchers.Main) {
