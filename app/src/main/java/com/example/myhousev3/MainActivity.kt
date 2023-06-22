@@ -26,6 +26,7 @@ import com.example.myhousev3.databases.UserDb
 import com.example.myhousev3.databinding.ActivityMainBinding
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.yandex.mapkit.MapKitFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -49,6 +50,9 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        MapKitFactory.setApiKey("a4476ed5-9873-45bf-b62f-6fc6549aa4b5")
+        MapKitFactory.initialize(this)
 
         //BOTTOM NAVIGATION
         val botNavView: BottomNavigationView = binding.botNavView

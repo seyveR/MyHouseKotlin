@@ -127,4 +127,9 @@
             android:id="@+id/action_loadFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.myhousev3.fragments.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>

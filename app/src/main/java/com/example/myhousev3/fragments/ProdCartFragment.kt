@@ -56,9 +56,6 @@ class ProdCartFragment : Fragment() {
         prodDao = ProdDb.getDb(requireContext()).getDao()
 
 
-
-
-
         val btnCart = binding.btnCart
         btnCart.setOnClickListener {
             lifecycleScope.launch {

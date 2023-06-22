@@ -67,6 +67,10 @@ class ProfileFragment : Fragment() {
             navController.navigate(R.id.ordersFragment)
         }
 
+        binding.cvGeo.setOnClickListener {
+            navController.navigate(R.id.mapFragment)
+        }
+
         getUserData()
         val builder = AlertDialog.Builder(requireContext())
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyHouse</string>
+    <string name="app_name">MyHouseApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="categories">Категории бытовых услуг</string>
