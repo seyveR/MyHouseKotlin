@@ -20,6 +20,6 @@ data class OrderItem (
     var user_info: String,
     @ColumnInfo(name = "imageRes")
     var imageRes: String? = null,
-//    @ColumnInfo(name = "isProcessed")
-//    var isProcessed: Boolean = false
+    @ColumnInfo(name = "isProcessed")
+    var isProcessed: Boolean = false
 )

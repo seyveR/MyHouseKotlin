@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.PointF
+import android.location.Location
 import android.net.Network
 import android.os.Bundle
 import android.os.Handler
@@ -23,6 +24,8 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.room.Query
 import com.example.myhousev3.R
 import com.example.myhousev3.databinding.FragmentMapBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKit
 import com.yandex.mapkit.MapKitFactory
@@ -61,6 +64,7 @@ class MapFragment : Fragment(), UserLocationObjectListener, Session.SearchListen
     lateinit var searchEdit: EditText
     lateinit var searchManager: SearchManager
     lateinit var searchSession: Session
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
 
     override fun onCreateView(
@@ -72,10 +76,11 @@ class MapFragment : Fragment(), UserLocationObjectListener, Session.SearchListen
         mapView = binding.mapView
         mapView.map.move(CameraPosition(Point(64.526387, 40.561472),13.0f, 0.0f,0.0f),
         Animation(Animation.Type.SMOOTH, 0f),null)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         var mapKit:MapKit = MapKitFactory.getInstance()
         requestLocationPermission()
         var probki = mapKit.createTrafficLayer(mapView.mapWindow)
-        probki.isTrafficVisible = true
+        probki.isTrafficVisible = false
 
         locationmapkit = mapKit.createUserLocationLayer(mapView.mapWindow)
         locationmapkit.isVisible = true
@@ -125,19 +130,54 @@ class MapFragment : Fragment(), UserLocationObjectListener, Session.SearchListen
     }
 
     override fun onObjectAdded(userLocationView: UserLocationView) {
-        Log.d("MapFragment", "onObjectAdded called")
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    location?.let {
+                        val latitude = location.latitude
+                        val longitude = location.longitude
+                        val message = "Текущие координаты: $latitude, $longitude"
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                        Log.d("log", message)
+                    }
+                }
+                .addOnFailureListener { exception: Exception ->
+                    Toast.makeText(
+                        requireContext(),
+                        "Не удалось получить местоположение: ${exception.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        } else {
+            // Если разрешения не предоставлены, запросите их у пользователя
+            requestLocationPermission()
+        }
+
         locationmapkit.setAnchor(
-            PointF((mapView.width() *0.5).toFloat(),(mapView.height()*0.5).toFloat()),
-            PointF((mapView.width() *0.5).toFloat(),(mapView.height()*0.83).toFloat())
+            PointF((mapView.width() * 0.5).toFloat(), (mapView.height() * 0.5).toFloat()),
+            PointF((mapView.width() * 0.5).toFloat(), (mapView.height() * 0.83).toFloat())
         )
         userLocationView.arrow.setIcon(ImageProvider.fromResource(requireContext(), R.drawable.user_arrow))
         val picIcon = userLocationView.pin.useCompositeIcon()
-        picIcon.setIcon("icon", ImageProvider.fromResource(requireContext(), R.drawable.user_arrow), IconStyle().
-        setAnchor(PointF(0f, 0f))
-            .setRotationType(RotationType.ROTATE).setZIndex(0f).setScale(1f)
+        picIcon.setIcon(
+            "icon",
+            ImageProvider.fromResource(requireContext(), R.drawable.user_arrow),
+            IconStyle().setAnchor(PointF(0f, 0f))
+                .setRotationType(RotationType.ROTATE).setZIndex(0f).setScale(1f)
         )
-        picIcon.setIcon("pin", ImageProvider.fromResource(requireContext(), R.drawable.nothing),
-            IconStyle().setAnchor(PointF(0.5f, 05f)).setRotationType(RotationType.ROTATE).setZIndex(1f).setScale(0.5f))
+        picIcon.setIcon(
+            "pin",
+            ImageProvider.fromResource(requireContext(), R.drawable.nothing),
+            IconStyle().setAnchor(PointF(0.5f, 05f)).setRotationType(RotationType.ROTATE).setZIndex(1f).setScale(0.5f)
+        )
 
         userLocationView.accuracyCircle.fillColor = Color.BLUE and -0x66000001
     }
@@ -145,7 +185,7 @@ class MapFragment : Fragment(), UserLocationObjectListener, Session.SearchListen
     override fun onObjectRemoved(p0: UserLocationView) {
     }
 
-    override fun onObjectUpdated(p0: UserLocationView, p1: ObjectEvent) {
+    override fun onObjectUpdated(userLocationView: UserLocationView, objectEvent: ObjectEvent) {
     }
 
     override fun onSearchResponse(response: Response) {
@@ -179,4 +219,7 @@ class MapFragment : Fragment(), UserLocationObjectListener, Session.SearchListen
             submitQuery(searchEdit.text.toString())
         }
     }
+
+
+
 }

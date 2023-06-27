@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.myhousev3.Migrations
 
-@Database(entities = [OrderItem::class], version = 1)
+@Database(entities = [OrderItem::class], version = 2)
 abstract class OrderDb : RoomDatabase() {
     abstract fun getDao(): OrderDao
 
@@ -15,7 +16,8 @@ abstract class OrderDb : RoomDatabase() {
                 context.applicationContext,
                 OrderDb::class.java,
                 "order.db"
-            ).build()
+            ).addMigrations(Migrations.migration1to2)
+                .build()
         }
     }
 }

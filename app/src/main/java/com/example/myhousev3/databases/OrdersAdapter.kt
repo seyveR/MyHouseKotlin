@@ -1,5 +1,6 @@
 package com.example.myhousev3.databases
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Looper
 import android.view.LayoutInflater
@@ -9,13 +10,15 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myhousev3.R
+import com.example.myhousev3.fragments.OrdersFragment
 import java.util.logging.Handler
 
-class OrdersAdapter(private val deleteCallback: (OrderItem) -> Unit, private val navController: NavController) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class OrdersAdapter(private val deleteCallback: (OrderItem) -> Unit, private val navController: NavController, private val context: Context, private val updateOrderCallback: (OrderItem) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var orders: List<OrderItem> = listOf()
     private var colors: List<Int> = listOf(
         R.color.catColor1, R.color.catColor2, R.color.catColor3,
@@ -49,7 +52,7 @@ class OrdersAdapter(private val deleteCallback: (OrderItem) -> Unit, private val
             }
             TYPE_ITEM -> {
                 val view = inflater.inflate(R.layout.orders_model, parent, false)
-                OrderViewHolder(view, deleteCallback)
+                OrderViewHolder(view, deleteCallback, updateOrderCallback)
             }
             else -> throw IllegalArgumentException("Invalid view type")
         }
@@ -77,11 +80,18 @@ class OrdersAdapter(private val deleteCallback: (OrderItem) -> Unit, private val
         }
     }
 
-    class OrderViewHolder(itemView: View, private val deleteCallback: (OrderItem) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    class OrderViewHolder(itemView: View, private val deleteCallback: (OrderItem) -> Unit, private val updateOrderCallback: (OrderItem) -> Unit) :
+        RecyclerView.ViewHolder(itemView) {
+
+        private var order: OrderItem? = null
+
         fun bind(order: OrderItem) {
+            this.order = order
+
+            // Остальной код
 
             itemView.findViewById<TextView>(R.id.name).text = order.name
-//            itemView.findViewById<TextView>(R.id.type).text = cloth.type
+//            itemView.findViewById<TextView>(R.id.type).text = order.type
             itemView.findViewById<TextView>(R.id.price).text = order.price
             itemView.findViewById<TextView>(R.id.info).text = order.info
             val imageView = itemView.findViewById<ImageView>(R.id.prodImg)
@@ -93,18 +103,37 @@ class OrdersAdapter(private val deleteCallback: (OrderItem) -> Unit, private val
                 )
                 imageView.setImageResource(imageResId)
             } else {
-                imageView.setImageResource(R.drawable.logohousepng)
+                imageView.setImageResource(R.drawable.logohousepng) // Загрузите изображение по умолчанию, если у пользователя нет изображения
             }
+
 
             val statusTextView = itemView.findViewById<TextView>(R.id.tvStatus)
             val statusCardView = itemView.findViewById<CardView>(R.id.status)
-            statusTextView.text = "в обработке"
-            statusCardView.setCardBackgroundColor(Color.BLUE)
 
-            android.os.Handler(Looper.getMainLooper()).postDelayed({
+            if (order.isProcessed) {
                 statusTextView.text = "выполнено"
                 statusCardView.setCardBackgroundColor(Color.GREEN)
-            }, 5000)
+            } else {
+                statusTextView.text = "в обработке"
+                statusCardView.setCardBackgroundColor(Color.BLUE)
+
+                android.os.Handler(Looper.getMainLooper()).postDelayed({
+                    // Обновить значение статуса и сохранить в базе данных
+                    order.isProcessed = true
+                    updateOrderInDatabase(order)
+
+                    // Проверить, было ли обновленное значение сохранено в базе данных
+                    if (order.isProcessed) {
+                        statusTextView.text = "выполнено"
+                        statusCardView.setCardBackgroundColor(Color.GREEN)
+                    }
+                }, 5000)
+            }
         }
-    }
+        private fun updateOrderInDatabase(order: OrderItem) {
+            updateOrderCallback(order) // Вызов функции updateOrderInDatabase из фрагмента
+        }
+
+}
+
 }

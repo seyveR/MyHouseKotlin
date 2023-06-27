@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myhousev3.R
 import com.example.myhousev3.databases.OrderDao
 import com.example.myhousev3.databases.OrderDb
+import com.example.myhousev3.databases.OrderItem
 import com.example.myhousev3.databases.OrdersAdapter
 import com.example.myhousev3.databases.UserDao
 import com.example.myhousev3.databases.UserDb
@@ -44,13 +45,18 @@ class OrdersFragment : Fragment() {
         userDao = UserDb.getDb(requireContext()).getDao()
         navController = findNavController()
 
-        ordersAdapter = OrdersAdapter({ orderItem ->
-            orderItem.id?.let { id ->
-                lifecycleScope.launch {
-                    orderDao.deleteOrderItem(id)
+        ordersAdapter = OrdersAdapter(
+            { orderItem ->
+                orderItem.id?.let { id ->
+                    lifecycleScope.launch {
+                        orderDao.deleteOrderItem(id)
+                    }
                 }
-            }
-        }, navController)
+            },
+            navController,
+            requireContext(),
+            ::updateOrderInDatabase // Передача ссылки на функцию updateOrderInDatabase
+        )
 
         binding.btnBack.setOnClickListener { navController.navigate(R.id.profileFragment) }
 
@@ -77,6 +83,11 @@ class OrdersFragment : Fragment() {
             orderDao.getOrderByUser(currentUserEmail).onEach { orders ->
                 ordersAdapter.setOrder(orders)
             }.launchIn(lifecycleScope)
+        }
+    }
+    fun updateOrderInDatabase(order: OrderItem) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            orderDao.updateOrder(order)
         }
     }
 
