@@ -74,5 +74,7 @@ dependencies {
     //yandex maps
     implementation 'com.yandex.android:maps.mobile:4.1.0-full'
 
+    implementation 'org.jsoup:jsoup:1.14.3'
+
 
 }

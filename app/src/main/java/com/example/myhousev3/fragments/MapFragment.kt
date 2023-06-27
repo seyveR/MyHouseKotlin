@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.PointF
+import android.location.Geocoder
 import android.location.Location
 import android.net.Network
 import android.os.Bundle
@@ -54,6 +55,16 @@ import com.yandex.runtime.Error
 import com.yandex.runtime.image.ImageProvider
 import com.yandex.runtime.network.NetworkError
 import com.yandex.runtime.network.RemoteError
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONArray
+import org.jsoup.Jsoup
+import java.io.IOException
+import org.json.JSONObject
+import java.net.URL
+import java.util.Locale
 
 
 class MapFragment : Fragment(), UserLocationObjectListener, Session.SearchListener, CameraListener{
@@ -128,6 +139,29 @@ class MapFragment : Fragment(), UserLocationObjectListener, Session.SearchListen
         MapKitFactory.getInstance().onStart()
         super.onStart()
     }
+    private inner class ReverseGeocodingTask {
+        fun getCityFromCoordinates(location: Location) {
+            GlobalScope.launch(Dispatchers.Main) {
+                val geocoder = Geocoder(requireContext(), Locale.getDefault())
+                val addresses = withContext(Dispatchers.IO) {
+                    geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                }
+
+                if (addresses != null && addresses.isNotEmpty()) {
+                    val city = addresses[0].locality
+                    if (city != null) {
+                        val message = "Текущий город: $city"
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                        Log.d("log", message)
+                    } else {
+                        Toast.makeText(requireContext(), "Не удалось определить город", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Не удалось определить город", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
     override fun onObjectAdded(userLocationView: UserLocationView) {
         if (ActivityCompat.checkSelfPermission(
@@ -144,9 +178,7 @@ class MapFragment : Fragment(), UserLocationObjectListener, Session.SearchListen
                     location?.let {
                         val latitude = location.latitude
                         val longitude = location.longitude
-                        val message = "Текущие координаты: $latitude, $longitude"
-                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                        Log.d("log", message)
+                        ReverseGeocodingTask().getCityFromCoordinates(location)
                     }
                 }
                 .addOnFailureListener { exception: Exception ->
