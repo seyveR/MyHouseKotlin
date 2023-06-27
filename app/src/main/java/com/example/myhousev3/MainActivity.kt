@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        MapKitFactory.setApiKey("a4476ed5-9873-45bf-b62f-6fc6549aa4b5")
-        MapKitFactory.initialize(this)
+
 
         //BOTTOM NAVIGATION
         val botNavView: BottomNavigationView = binding.botNavView

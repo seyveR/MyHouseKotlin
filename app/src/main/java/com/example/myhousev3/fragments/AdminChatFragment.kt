@@ -24,32 +24,33 @@ import com.example.myhousev3.chatmvvm.MessageViewModel
 import com.example.myhousev3.databases.CartDao
 import com.example.myhousev3.databases.UserDao
 import com.example.myhousev3.databases.UserDb
+import com.example.myhousev3.databinding.FragmentAdminChatBinding
 import com.example.myhousev3.databinding.FragmentPaymentBinding
 import com.example.myhousev3.databinding.FragmentSuccessBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class SuccessFragment : Fragment() {
+class AdminChatFragment : Fragment() {
 
-    private lateinit var binding: FragmentSuccessBinding
+    private lateinit var binding: FragmentAdminChatBinding
     private var selectedImagePath: String? = null
     private val messageViewModel: MessageViewModel by viewModels()
     private lateinit var userDao: UserDao
     private lateinit var navController: NavController
-    private lateinit var currentUserEmail: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSuccessBinding.inflate(inflater, container, false)
+        binding = FragmentAdminChatBinding.inflate(inflater, container, false)
 
         val adapter = MessageAdapter()
         binding.messageRecyclerView.adapter = adapter
         binding.messageRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         navController = findNavController()
         userDao = UserDb.getDb(requireContext()).getDao()
+
 
         lifecycleScope.launch {
             val currentUser = withContext(Dispatchers.IO) {
@@ -60,13 +61,21 @@ class SuccessFragment : Fragment() {
                 userDao.getUsersByAdminStatus()
             }
 
-            currentUserEmail = currentUser?.email ?: ""
+
             val userEmail = currentUser?.email ?: ""
             Log.d("mytag", "email = $userEmail")
 
             messageViewModel.allMessages.observe(viewLifecycleOwner) { messages ->
-                val filteredMessages = messages.filter { message ->
-                    message.to_whom == currentUserEmail
+                val filteredMessages = if (currentUser != null && currentUser.is_admin == 1) {
+                    // Отображать все сообщения для администратора
+                    messages
+                } else {
+                    // Фильтрация сообщений на основе требований и подстановка email из users
+                    messages.filter { message ->
+                        (message.userEmail == userEmail) || adminUsers.any { adminUser ->
+                            adminUser.email == message.userEmail
+                        }
+                    }
                 }
 
                 Log.d("SuccessFragment", "Filtered Messages: $filteredMessages")
@@ -77,8 +86,9 @@ class SuccessFragment : Fragment() {
         binding.btnBack.setOnClickListener { navController.navigate(R.id.settingsFragment)}
         binding.btnSend.setOnClickListener {
             val messageText = binding.msgEt.text.toString().trim()
+            val currentMsgEmail = binding.msgEmail.text.toString().trim()
 
-            if (messageText.isNotEmpty()) {
+            if (messageText.isNotEmpty() && currentMsgEmail.isNotEmpty()) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     val currentUser = userDao.getCurrentUser()
 
@@ -87,12 +97,13 @@ class SuccessFragment : Fragment() {
                             userEmail = currentUser.email,
                             message = messageText,
                             imageUser = currentUser.imageRes ?: "",
-                            to_whom = currentUserEmail,
+                            to_whom = currentMsgEmail,
                             timestamp = System.currentTimeMillis()
                         )
                         messageViewModel.insert(messageItem)
                         withContext(Dispatchers.Main) {
                             binding.msgEt.setText("")
+                            binding.msgEmail.setText("")
                         }
                     }
                 }

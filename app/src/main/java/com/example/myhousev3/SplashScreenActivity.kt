@@ -13,6 +13,7 @@ import com.example.myhousev3.databases.ProdItem
 import com.example.myhousev3.databases.UserDao
 import com.example.myhousev3.databases.UserDb
 import com.example.myhousev3.databinding.ActivitySplashScreenBinding
+import com.yandex.mapkit.MapKitFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -30,6 +31,9 @@ class SplashScreenActivity : AppCompatActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         supportActionBar?.hide()
         setContentView(binding.root)
+
+        MapKitFactory.setApiKey("a4476ed5-9873-45bf-b62f-6fc6549aa4b5")
+        MapKitFactory.initialize(this)
 
         catDao = CatDb.getDb(this).getDao()
         prodDao = ProdDb.getDb(this).getDao()

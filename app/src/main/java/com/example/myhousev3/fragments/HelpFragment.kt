@@ -64,7 +64,7 @@ class HelpFragment : Fragment() {
         })
 
         btnAdd.setOnClickListener{ addService() }
-        binding.btnChat.setOnClickListener { navController.navigate(R.id.settingsFragment) }
+        binding.btnChat.setOnClickListener { navController.navigate(R.id.adminChatFragment) }
         binding.btnInfo.setOnClickListener { navController.navigate(R.id.infoFragment) }
 
 

@@ -14,6 +14,9 @@ data class MessageItem (
     var message: String,
     @ColumnInfo(name = "image_user")
     var imageUser: String,
+    @ColumnInfo(name = "to_whom")
+    var to_whom: String,
     @ColumnInfo(name = "timestamp")
     var timestamp: Long
+
 )
