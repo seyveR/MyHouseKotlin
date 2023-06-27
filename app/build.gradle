@@ -75,6 +75,7 @@ dependencies {
     implementation 'com.yandex.android:maps.mobile:4.1.0-full'
 
     implementation 'org.jsoup:jsoup:1.14.3'
+    implementation 'com.github.javafaker:javafaker:1.0.2'
 
 
 }

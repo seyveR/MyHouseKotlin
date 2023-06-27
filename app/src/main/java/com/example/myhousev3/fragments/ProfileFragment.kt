@@ -67,7 +67,7 @@ class ProfileFragment : Fragment() {
             navController.navigate(R.id.ordersFragment)
         }
 
-        binding.cvGeo.setOnClickListener {
+        binding.geoImg.setOnClickListener {
             navController.navigate(R.id.mapFragment)
         }
 
@@ -103,10 +103,33 @@ class ProfileFragment : Fragment() {
             }
             val alert = builder.create()
             alert.show()
-
-
+        }
+        val btnAddressCheck = binding.addressCheck
+        btnAddressCheck.setOnClickListener {
+            builder.setMessage("Вы точно хотите сохранить изменения в адресе?")
+            builder.setCancelable(true)
+            builder.setPositiveButton("Да") { dialog, _ ->
+                saveAddressChanges()
+                dialog.dismiss()
+            }
+            builder.setNegativeButton("Нет") { dialog, _ ->
+                dialog.dismiss()
+            }
+            val alert = builder.create()
+            alert.show()
         }
 
+    }
+    private fun saveAddressChanges() {
+        val userDao = UserDb.getDb(requireContext()).getDao()
+        viewLifecycleOwner.lifecycleScope.launch {
+            val user = getCurrentUser(userDao)
+            if (user != null) {
+                val address = binding.geoTv.text.toString()
+                user.address = address
+                updateUser(userDao, user)
+            }
+        }
     }
     private fun updateUserData() {
         val userDao = UserDb.getDb(requireContext()).getDao()
@@ -118,9 +141,11 @@ class ProfileFragment : Fragment() {
                 val oldEmail = user.email
                 val newEmail = binding.EmailTv.text.toString()
                 val firstname = binding.NameTv.text.toString()
+                val address = binding.geoTv.text.toString()
 
                 user.firstname = firstname
                 user.email = newEmail
+                user.address = address
 
                 withContext(Dispatchers.IO) {
                     updateUser(userDao, user)
@@ -166,6 +191,7 @@ class ProfileFragment : Fragment() {
             if (user != null) {
                 binding.NameTv.text = user.firstname.toEditable()
                 binding.EmailTv.text = user.email.toEditable()
+                binding.geoTv.text = user.address?.toEditable()
 
                 // Load image from database into ImageView
                 val imgUri = user.imageRes
@@ -232,12 +258,7 @@ class ProfileFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PICK_IMAGE) {
             val uri = data?.data
             uri?.let {
-                // Now, you have the Uri of the selected image, you can do whatever you want with it.
-                // For example, you can display it in the ImageView using Glide or other library
                 Glide.with(requireContext()).load(uri).into(binding.profileImg)
-
-                // Or save the uri or path of the image to the database.
-                // Here, we are assuming that you have a function called `saveImageToDatabase` to do that.
                 saveImageToDatabase(uri)
             }
         }

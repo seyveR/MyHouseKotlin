@@ -14,6 +14,9 @@ interface UserDao {
     @Insert
     fun insertUser(user: UserItem)
 
+    @Query("UPDATE users SET address = :address WHERE is_auth = 1")
+    fun updateCurrentUserAddress(address: String)
+
 
     @Query("SELECT * FROM users")
     fun getAllUser(): Flow<List<UserItem>>

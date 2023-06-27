@@ -14,6 +14,8 @@ data class UserItem (
     var email: String,
     @ColumnInfo(name = "pass")
     var pass: String,
+    @ColumnInfo(name = "address")
+    var address: String? = null,
     @ColumnInfo(name = "imageRes")
     var imageRes: String? = null,
     @ColumnInfo(name = "is_auth")

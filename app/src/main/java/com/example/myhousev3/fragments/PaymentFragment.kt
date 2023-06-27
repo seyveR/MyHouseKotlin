@@ -19,6 +19,7 @@ import com.example.myhousev3.databases.SharedViewModel
 import com.example.myhousev3.databases.UserDao
 import com.example.myhousev3.databases.UserDb
 import com.example.myhousev3.databinding.FragmentPaymentBinding
+import com.github.javafaker.Faker
 import com.google.android.material.badge.BadgeDrawable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -34,6 +35,7 @@ class PaymentFragment : Fragment() {
     private lateinit var orderDao: OrderDao
     private var badge: BadgeDrawable? = null
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val faker = Faker()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,9 +54,12 @@ class PaymentFragment : Fragment() {
 
         binding.tinkoffCv.setOnClickListener {
             // Заполняем поля значениями при нажатии на CardView
-            binding.cardNumberEdit.setText("2200 7002 8092 9002")
-            binding.EditCVV.setText("777")
-            binding.EditDate.setText("31/30")
+            val cardNumber = faker.number().digits(16)
+            val expirationDate = String.format("%02d/%02d", faker.number().numberBetween(1, 13), faker.number().numberBetween(23, 30))
+
+            binding.cardNumberEdit.setText(cardNumber)
+            binding.EditCVV.setText(faker.number().digits(3))
+            binding.EditDate.setText(expirationDate)
         }
 
         binding.sbpCv.setOnClickListener {

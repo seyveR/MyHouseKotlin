@@ -353,24 +353,25 @@
 
                             </ImageView>
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/geoTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:text="Архангельск"
+                                android:text="Неизвестно"
                                 android:textColor="@color/black"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="normal"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintLeft_toRightOf="@+id/geoImg"
                                 app:layout_constraintTop_toTopOf="parent">
 
 
-                            </TextView>
+                            </EditText>
 
 
                             <ImageView
+                                android:id="@+id/addressCheck"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 app:tint="@color/black"

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.PointF
+import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.net.Network
@@ -24,6 +25,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.room.Query
 import com.example.myhousev3.R
+import com.example.myhousev3.databases.UserDb
 import com.example.myhousev3.databinding.FragmentMapBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -140,24 +142,47 @@ class MapFragment : Fragment(), UserLocationObjectListener, Session.SearchListen
         super.onStart()
     }
     private inner class ReverseGeocodingTask {
-        fun getCityFromCoordinates(location: Location) {
-            GlobalScope.launch(Dispatchers.Main) {
-                val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                val addresses = withContext(Dispatchers.IO) {
-                    geocoder.getFromLocation(location.latitude, location.longitude, 1)
+        suspend fun getCityFromCoordinates(location: Location) {
+            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+            val addresses = withContext(Dispatchers.IO) {
+                geocoder.getFromLocation(location.latitude, location.longitude, 1)
+            }
+
+            if (addresses != null && addresses.isNotEmpty()) {
+                val address = addresses[0]
+                val city = address.locality
+                val street = address.thoroughfare
+                val houseNumber = address.featureName
+
+                val fullAddress = buildString {
+                    append(city)
+                    if (!street.isNullOrEmpty()) {
+                        append(", $street")
+                    }
+                    if (!houseNumber.isNullOrEmpty()) {
+                        append(", $houseNumber")
+                    }
                 }
 
-                if (addresses != null && addresses.isNotEmpty()) {
-                    val city = addresses[0].locality
-                    if (city != null) {
-                        val message = "Текущий город: $city"
+                if (fullAddress.isNotEmpty()) {
+                    val message = "Адрес: $fullAddress"
+                    withContext(Dispatchers.Main) {
                         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                         Log.d("log", message)
-                    } else {
-                        Toast.makeText(requireContext(), "Не удалось определить город", Toast.LENGTH_SHORT).show()
+                    }
+
+                    val userDao = UserDb.getDb(requireContext()).getDao()
+                    withContext(Dispatchers.IO) {
+                        userDao.updateCurrentUserAddress(fullAddress)
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Не удалось определить город", Toast.LENGTH_SHORT).show()
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Не удалось определить адрес", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Не удалось определить адрес", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -178,7 +203,10 @@ class MapFragment : Fragment(), UserLocationObjectListener, Session.SearchListen
                     location?.let {
                         val latitude = location.latitude
                         val longitude = location.longitude
-                        ReverseGeocodingTask().getCityFromCoordinates(location)
+                        GlobalScope.launch(Dispatchers.Main) {
+                            val reverseGeocodingTask = ReverseGeocodingTask()
+                            reverseGeocodingTask.getCityFromCoordinates(location)
+                        }
                     }
                 }
                 .addOnFailureListener { exception: Exception ->

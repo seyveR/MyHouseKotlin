@@ -25,4 +25,9 @@ object Migrations {
             database.execSQL("ALTER TABLE `messages_new` RENAME TO `messages`")
         }
     }
+    val migration1to2User = object : Migration(1, 2) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE `users` ADD COLUMN `address` TEXT")
+        }
+    }
 }
