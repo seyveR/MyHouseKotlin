@@ -14,6 +14,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.regex.Pattern
+import org.mindrot.jbcrypt.BCrypt
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -59,11 +60,13 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt())
+
             // Остальной код остается без изменений
             GlobalScope.launch {
                 val userList = checkUser(email)
                 if (userList == null) {
-                    val user = UserItem(null, firstName, email, password)
+                    val user = UserItem(null, firstName, email, hashedPassword)
                     db.getDao().insertUser(user)
                     withContext(Dispatchers.Main) {
                         // Очистка текстовых полей

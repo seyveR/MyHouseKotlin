@@ -78,4 +78,11 @@ dependencies {
     implementation 'com.github.javafaker:javafaker:1.0.2'
 
 
+    implementation 'com.sun.mail:android-mail:1.6.5'
+    implementation 'com.sun.mail:android-activation:1.6.5'
+
+    implementation 'org.mindrot:jbcrypt:0.4'
+
+
+
 }

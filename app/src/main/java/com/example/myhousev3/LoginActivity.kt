@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.mindrot.jbcrypt.BCrypt
 
 
 
@@ -53,8 +54,8 @@ class LoginActivity : AppCompatActivity() {
     private fun login(email: String, password: String) {
         lifecycleScope.launch(Dispatchers.IO) {
             val userDao = UserDb.getDb(this@LoginActivity).getDao()
-            val user = userDao.getUser(email, password)
-            if (user != null) {
+            val user = userDao.getUserEmail(email)
+            if (user != null && BCrypt.checkpw(password, user.pass)) {
                 user.is_auth = 1
                 userDao.updateUser(user)
                 withContext(Dispatchers.Main) {
